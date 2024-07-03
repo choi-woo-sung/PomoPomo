@@ -16,11 +16,13 @@
 
 package com.pomopomo.woosung.feature.main.ui
 
+import androidx.compose.foundation.Canvas
 import com.pomopomo.woosung.core.ui.MyApplicationTheme
 import com.pomopomo.woosung.feature.main.ui.MainUiState.Success
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -33,6 +35,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -59,7 +67,9 @@ internal fun MainScreen(
     Column(modifier) {
         var nameMain by remember { mutableStateOf("Compose") }
         Row(
-            modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 24.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             TextField(
@@ -74,6 +84,31 @@ internal fun MainScreen(
         items.forEach {
             Text("Saved item: $it")
         }
+    }
+}
+
+
+@Preview
+@Composable
+private fun Circular() {
+
+    Canvas(Modifier.fillMaxSize()) {
+        val size = this.size
+
+        drawCircle(
+            color = Color.White
+        )
+        drawArc(
+            size = Size(width = size.width, height = size.height / 2),
+            topLeft = Offset(0f, center.y ),
+            startAngle = 0f,
+            color = Color.Red,
+            sweepAngle = -180f,
+            useCenter = false,
+            style = Stroke(30f , cap = StrokeCap.Round)
+
+        )
+
     }
 }
 
